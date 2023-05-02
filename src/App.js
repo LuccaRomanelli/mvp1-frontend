@@ -5,8 +5,10 @@ import './App.css';
 function App() {
 
   useEffect(()=>{
-    axios.get('http://127.0.0.1:5000/reviews').then(res=>setData(res.data))
+    axios.get('http://127.0.0.1:5000/reviews').then(res=>{
+      setData(res.data)
   })
+  }, [])
   const [data, setData] = useState([])
 
   const [formValues, setFormValues] = useState({});
@@ -21,15 +23,14 @@ function App() {
     const formData = new FormData(e.target)
     const review = Object.fromEntries(formData)
     axios.post("http://127.0.0.1:5000/reviews", review).then((res) => {
-      console.log(res)
-      // location.reload()
+      window.location.reload()
     } 
     )
   }
 
   const handleDelete = (id) => {
     axios.delete(`http://127.0.0.1:5000/reviews/${id}`).then(res =>{
-      console.log('Deletei')
+      window.location.reload()
     })
   }
 
